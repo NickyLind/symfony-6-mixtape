@@ -9,7 +9,7 @@ use function Symfony\Component\String\u;
 
 class VinylController extends AbstractController {
 
-  #[Route('/')]
+  #[Route('/', name: 'app_homepage')]
   public function index() : Response {
 
     $tracks = [
@@ -27,15 +27,13 @@ class VinylController extends AbstractController {
     ]);
   }
 
-  #[Route('/browse/{slug}')]
+  #[Route('/browse/{slug}', name: 'app_browse')]
   public function browse(string $slug = null) : Response {
 
-    if ($slug) {
-      $title = "Chosen Genre: " . u(str_replace("-", " ", $slug))->title(true);
-    } else {
-      $title = u("all genres")->title(true);
-    }
+    $genre = $slug ? u(str_replace("-", " ", $slug))->title(true) : null;
 
-    return new Response($title);
+    return $this->render('vinyl/browse.html.twig', [
+      'genre' => $genre
+    ]);
   }
 }

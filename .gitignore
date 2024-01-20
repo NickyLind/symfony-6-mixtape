@@ -25,3 +25,7 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+### MISC ###
+.DS_Store
+### MISC ###
