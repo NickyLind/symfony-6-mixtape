@@ -1,13 +1,16 @@
 version: '3.8'
+
 services:
   web:
     build: .
     volumes:
       - .:/var/www/html
+      - ./public/build:/var/www/html/public/build
     ports:
       - "8080:80"
     depends_on:
       - db
+
   db:
     image: mysql:8
     ports:
@@ -17,5 +20,14 @@ services:
       - MYSQL_DATABASE=php_dev
     volumes:
       - db-data:/var/lib/mysql
+
+  node:
+    image: node:latest
+    working_dir: /home/node/app
+    volumes:
+      - .:/home/node/app
+      - ./public/build:/home/node/app/public/build
+    command: sh -c "npm install && npm run watch"
+
 volumes:
   db-data:

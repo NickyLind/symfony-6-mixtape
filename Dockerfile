@@ -29,12 +29,14 @@ ADD symfony.ini /usr/local/etc/php/conf.d/
 RUN a2enmod rewrite proxy
 RUN a2ensite 000-default.conf
 
-# Install Node.js (Latest LTS version)
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+#! for installing node to web service
+# # Install Node.js using 'n'
+# RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
+#     && bash n lts \
+#     && rm n
 
-# Install npm
-RUN npm install -g npm
+# # Install npm
+# RUN npm install -g npm
 
 COPY . /var/www/html
 
